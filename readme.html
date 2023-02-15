@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>README Generator</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+		header {
+			background-color: #333;
+			color: #fff;
+			padding: 10px;
+			text-align: center;
+		}
+		h1 {
+			margin: 0;
+		}
+		form {
+			padding: 20px;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+		label {
+			display: block;
+			margin-bottom: 5px;
+			font-weight: bold;
+		}
+		input[type="text"],
+		textarea {
+			display: block;
+			width: 100%;
+			padding: 10px;
+			margin-bottom: 20px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+		}
+		button {
+			background-color: #333;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>README Generator</h1>
+	</header>
+	<form id="readme-form">
+		<label for="project-name">Project Name:</label>
+		<input type="text" id="project-name" name="project-name" required>
+
+		<label for="description">Description:</label>
+		<textarea id="description" name="description" required></textarea>
+
+		<label for="installation">Installation:</label>
+		<textarea id="installation" name="installation" required></textarea>
+
+		<label for="usage">Usage:</label>
+		<textarea id="usage" name="usage" required></textarea>
+
+		<label for="contributing">Contributing:</label>
+		<textarea id="contributing" name="contributing" required></textarea>
+
+		<label for="license">License:</label>
+		<input type="text" id="license" name="license" required>
+
+		<button type="submit">Generate README</button>
+	</form>
+
+	<script>
+		const form = document.querySelector('#readme-form');
+		form.addEventListener('submit', (e) => {
+			e.preventDefault();
+			const projectName = form.elements['project-name'].value;
+			const description = form.elements['description'].value;
+			const installation = form.elements['installation'].value;
+			const usage = form.elements['usage'].value;
+			const contributing = form.elements['contributing'].value;
+			const license = form.elements['license'].value;
+
+			const readmeContent = `# ${projectName}
+
+${description}
+
+## Installation
+
+${installation}
+
+## Usage
+
+${usage}
+
+## Contributing
+
+${contributing}
+
+## License
+
+This project is licensed under the ${license} license.`;
+
+			const readmeBlob = new Blob([readmeContent], {type: 'text/plain'});
+			const readmeLink = document.createElement('a');
+			readmeLink.download = 'README.md';
+			readmeLink.href = URL.createObjectURL(readmeBlob);
+			readmeLink.click();
+		});
+	</script>
+</body>
+</html>
